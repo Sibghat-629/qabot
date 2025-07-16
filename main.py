@@ -2,10 +2,10 @@ import os
 import streamlit as st
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores.faiss import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFacePipeline
 from langchain.chains import RetrievalQA
-from transformers import pipeline
+from transformers.pipelines import pipeline
 import tempfile
 
 st.set_page_config(page_title="🧠 PDF Question Answering")
@@ -27,7 +27,7 @@ if uploaded_file:
     # Load and split PDF
     loader = PyPDFLoader(pdf_path)
     pages = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=200, chunk_overlap=50)
+    text_splitter = CharacterTextSplitter(chunk_size=300, chunk_overlap=50)
     documents = text_splitter.split_documents(pages)
 
     # Create embeddings
